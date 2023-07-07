@@ -1,0 +1,11 @@
+DECLARE @AllowedCh NVARCHAR(MAX)
+SET @AllowedCh = N'abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя''!'
+
+
+SELECT [FirstName], [LastName], [MiddleName]
+FROM dbo.data1
+WHERE (
+    PATINDEX('%[^' + @AllowedCh + ']%', [FirstName]) > 0 OR
+    PATINDEX('%[^' + @AllowedCh + ']%', [LastName]) > 0 OR
+    PATINDEX('%[^' + @AllowedCh + ']%', [MiddleName]) > 0
+)
